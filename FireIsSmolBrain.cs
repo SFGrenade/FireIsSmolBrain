@@ -11,12 +11,13 @@ using HutongGames.PlayMaker.Actions;
 using Modding;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Object = UnityEngine.Object;
 
 namespace FireIsSmolBrain
 {
     class FireIsSmolBrain : Mod
     {
-        private GameObject totemPrefab;
+        private GameObject _totemPrefab;
 
 #if !VERSION_1
         public override string GetVersion() => "Electric Boogaloo";
@@ -41,7 +42,7 @@ namespace FireIsSmolBrain
 
         public override void Initialize(Dictionary<string, Dictionary<string, GameObject>> preloadedObjects)
         {
-            totemPrefab = preloadedObjects["White_Palace_18"]["Soul Totem white_Infinte"];
+            _totemPrefab = preloadedObjects["White_Palace_18"]["Soul Totem white_Infinte"];
         }
 
         private void OnSceneManagerActiveSceneChanged(Scene from, Scene to)
@@ -49,7 +50,7 @@ namespace FireIsSmolBrain
             switch (to.name)
             {
                 case "Town":
-                    GameObject inst = GameObject.Instantiate(totemPrefab);
+                    GameObject inst = Object.Instantiate(_totemPrefab);
                     UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(inst, to);
                     inst.transform.position = new Vector3(137f, 12.75f, inst.transform.position.z);
                     {
